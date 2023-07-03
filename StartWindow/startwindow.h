@@ -2,10 +2,9 @@
 #define STARTWINDOW_H
 
 #include <QMainWindow>
+#include <QHBoxLayout>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class StartWindow; }
-QT_END_NAMESPACE
+class Menu;
 
 class StartWindow : public QMainWindow
 {
@@ -15,7 +14,13 @@ public:
     StartWindow(QWidget *parent = nullptr);
     ~StartWindow();
 
+private slots:
+
 private:
-    Ui::StartWindow *ui;
+    QWidget* mainWidget;
+    QHBoxLayout* mainLayout;
+
+    Menu* menuWidget;
+    QWidget* contentWidget;
 };
 #endif // STARTWINDOW_H
