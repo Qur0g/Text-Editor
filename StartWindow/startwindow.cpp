@@ -1,6 +1,6 @@
 #include "startwindow.h"
 #include "menu.h"
-//#include "Contents/homecontent.h"
+#include "Contents/homecontent.h"
 #include <QScreen>
 #include <QGuiApplication>
 
@@ -21,13 +21,17 @@ StartWindow::StartWindow(QWidget *parent)
     setCentralWidget(mainWidget);
     mainWidget->setFixedHeight(height());
     mainWidget->setFixedWidth(width());
-    mainWidget->setStyleSheet("background-color: green;");
+    mainWidget->setStyleSheet("background-color: red;");
 
     mainLayout = new QHBoxLayout(mainWidget);
     mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
+    mainLayout->setAlignment(Qt::AlignLeft);
 
     menuWidget = new Menu(mainWidget);
     mainLayout->addWidget(menuWidget);
+
+    //mainWidget->setLayout(mainLayout);
 
     //contentWidget = new HomeContent(mainWidget);
     //mainLayout->addWidget(contentWidget);

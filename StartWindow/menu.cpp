@@ -10,6 +10,7 @@ Menu::Menu(QWidget *parent)
     setFixedWidth(parent->width() * 0.1);
 
     menuLayout = new QVBoxLayout(this);
+    //menuLayout->setContentsMargins(0, 0, 0, 0);
 
     createButtons();
     for(const auto button : buttons)
