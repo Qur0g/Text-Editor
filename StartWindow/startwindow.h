@@ -5,6 +5,8 @@
 #include <QHBoxLayout>
 
 class Menu;
+class TitleBar;
+class MainWidget;
 
 class StartWindow : public QMainWindow
 {
@@ -14,13 +16,25 @@ public:
     StartWindow(QWidget *parent = nullptr);
     ~StartWindow();
 
+    bool event(QEvent *event) override;
+
+    void dropEvent(QDropEvent *p_event) override;
+    void dragEnterEvent(QDragEnterEvent *p_event) override;
+    void dragMoveEvent(QDragMoveEvent *p_event) override;
+
+protected:
+    //void mousePressEvent(QMouseEvent* event) override;
+
 private slots:
 
 private:
-    QWidget* mainWidget;
+    void buildUI();
+    void makeConnections();
+
+    QWidget* containerWidget;
     QHBoxLayout* mainLayout;
 
     Menu* menuWidget;
-    QWidget* contentWidget;
+    MainWidget* mainWidget;
 };
 #endif // STARTWINDOW_H

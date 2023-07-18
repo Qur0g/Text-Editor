@@ -5,37 +5,37 @@ Menu::Menu(QWidget *parent)
 {
     setAttribute(Qt::WA_StyledBackground);
     setStyleSheet("background-color: blue;");
-
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    setFixedWidth(parent->width() * 0.1);
 
     menuLayout = new QVBoxLayout(this);
     //menuLayout->setContentsMargins(0, 0, 0, 0);
 
     createButtons();
-    for(const auto button : buttons)
-        menuLayout->addWidget(button);
-
 }
 
 void Menu::createButtons()
 {
-    homeButton = new QPushButton("Home", this);
-    newButton = new QPushButton("New", this);
-    openButton = new QPushButton("Open", this);
+   //connectButtons();
 
-    homeButton->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_H));
-    newButton->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_N));
-    openButton->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_O));
+    //buttons.append(homeButton);
+   // buttons.append(newButton);
+   // buttons.append(openButton);
 
-    connectButtons();
-
-    buttons.append(homeButton);
-    buttons.append(newButton);
-    buttons.append(openButton);
+    homeButton = createButton("Home", (Qt::CTRL | Qt::Key_H));
+    newButton = createButton("New", (Qt::CTRL | Qt::Key_N));
+    openButton = createButton("Open", (Qt::CTRL | Qt::Key_O));
 }
 
-void Menu::connectButtons()
+QPushButton* Menu::createButton(QString name, QKeySequence shortcut)
 {
-    //connect(homeButton, SIGNAL(clicked()), this, SLOT())
+    auto button = new QPushButton(name, this);
+    button->setShortcut(shortcut);
+    menuLayout->addWidget(button);
+
+    return button;
 }
+
+//void Menu::connectButtons()
+//{
+    //connect(homeButton, SIGNAL(clicked()), this, SLOT())
+//}

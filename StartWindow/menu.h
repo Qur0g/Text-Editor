@@ -18,11 +18,12 @@ private slots:
 
 private:
     void createButtons();
-    void connectButtons();
+    QPushButton* createButton(QString name, QKeySequence shortcut);
+    //void connectButtons();
 
     QVBoxLayout* menuLayout;
 
-    QVector<QPushButton*> buttons;
+    //QVector<QPushButton*> buttons;
     QPushButton* homeButton;
     QPushButton* newButton;
     QPushButton* openButton;

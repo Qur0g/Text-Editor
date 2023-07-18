@@ -12,16 +12,22 @@ SOURCES += \
     Contents/homecontent.cpp \
     Contents/newcontent.cpp \
     Contents/opencontent.cpp \
+    StartWindow/listwidget.cpp \
+    StartWindow/mainwidget.cpp \
     StartWindow/menu.cpp \
     StartWindow/startwindow.cpp \
+    StartWindow/titlebar.cpp \
     main.cpp \
 
 HEADERS += \
     Contents/homecontent.h \
     Contents/newcontent.h \
     Contents/opencontent.h \
+    StartWindow/listwidget.h \
+    StartWindow/mainwidget.h \
     StartWindow/menu.h \
     StartWindow/startwindow.h \
+    StartWindow/titlebar.h
 
 FORMS += \
     StartWindow/startwindow.ui \
@@ -30,3 +36,7 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    Images.qrc \
+    Resources/Images.qrc
