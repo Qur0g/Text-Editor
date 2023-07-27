@@ -1,60 +1,46 @@
-/*#ifndef TITLEBAR_H
-#define TITLEBAR_H
-
-#include <QWidget>
-
-class TitleBar : public QWidget
-{
-    Q_OBJECT
-public:
-    explicit TitleBar(QWidget *parent = nullptr);
-
-signals:
-
-protected:
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-
-private:
-    QWidget *m_parent;
-    QPoint m_pCursor;
-};
-
-#endif // TITLEBAR_H*/
-
 #ifndef TITLEBAR_H
 #define TITLEBAR_H
 
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QLabel>
+
+class WindowButton;
+class ResizeButton;
 
 class TitleBar : public QWidget
 {
     Q_OBJECT
 public:
-    TitleBar(QWidget *parent = nullptr);
+    TitleBar(QWidget *parent = nullptr);   
 
-    QAction * addToolButton(QAction *action);
+    void resizeButtonClick();
 
-    //bool event(QEvent *event) override;
-    void dragEnterEvent(QDragEnterEvent *event) override;
-    void dragMoveEvent(QDragMoveEvent *p_event) override;
-    void dropEvent(QDropEvent *event) override;
-    void mousePressEvent(QMouseEvent* event) override;
-
-    QPushButton* minimizeButton;
-    QPushButton* resizeButton;   
-    QPushButton* closeButton;
+    WindowButton* minimizeButton_;
+    ResizeButton* resizeButton_;
+    WindowButton* closeButton_;
 
 signals:
     void moveWindow();
     void resizeWindow(QMouseEvent* event);
 
+protected:
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dragMoveEvent(QDragMoveEvent *p_event) override;
+    void dropEvent(QDropEvent *event) override;
+    void mousePressEvent(QMouseEvent* event) override;
+
 private:
     void setProperties();
     void createButtons();
 
-    QHBoxLayout* titleBarLayout;
+    QHBoxLayout* mainLayout_;
+    QVBoxLayout* labelLayout_;
+    QHBoxLayout* buttonsLayout_;
+
+    QVector<WindowButton*> buttons_;
+
+    QLabel* title_;
 };
 
 #endif // HEADBAR_H

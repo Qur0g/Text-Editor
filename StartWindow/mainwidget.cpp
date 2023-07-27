@@ -1,4 +1,5 @@
 #include "mainwidget.h"
+#include "Contents/homecontent.h"
 #include "titlebar.h"
 
 #include <QApplication>
@@ -6,12 +7,13 @@
 MainWidget::MainWidget(QWidget *parent)
     : QWidget{parent}
 {
-    layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);
+    layout_ = new QVBoxLayout(this);
+    layout_->setSpacing(0);
+    layout_->setContentsMargins(0, 0, 0, 0);
 
-    titleBar = new TitleBar(this);
-    layout->addWidget(titleBar, 10);
+    titleBar_ = new TitleBar(this);
+    layout_->addWidget(titleBar_, 10);
 
-    auto cont = new QWidget(this);
-    layout->addWidget(cont, 90);
+    content_ = new HomeContent(this);
+    layout_->addWidget(content_, 90);
 }

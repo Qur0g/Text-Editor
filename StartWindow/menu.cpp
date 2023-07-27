@@ -7,8 +7,8 @@ Menu::Menu(QWidget *parent)
     setStyleSheet("background-color: blue;");
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
-    menuLayout = new QVBoxLayout(this);
-    //menuLayout->setContentsMargins(0, 0, 0, 0);
+    menuLayout_ = new QVBoxLayout(this);
+    menuLayout_->setSpacing(0);
 
     createButtons();
 }
@@ -21,21 +21,16 @@ void Menu::createButtons()
    // buttons.append(newButton);
    // buttons.append(openButton);
 
-    homeButton = createButton("Home", (Qt::CTRL | Qt::Key_H));
-    newButton = createButton("New", (Qt::CTRL | Qt::Key_N));
-    openButton = createButton("Open", (Qt::CTRL | Qt::Key_O));
+    homeButton_ = createButton("Home", (Qt::CTRL | Qt::Key_H));
+    newButton_ = createButton("New", (Qt::CTRL | Qt::Key_N));
+    openButton_ = createButton("Open", (Qt::CTRL | Qt::Key_O));
 }
 
 QPushButton* Menu::createButton(QString name, QKeySequence shortcut)
 {
     auto button = new QPushButton(name, this);
     button->setShortcut(shortcut);
-    menuLayout->addWidget(button);
+    menuLayout_->addWidget(button);
 
     return button;
 }
-
-//void Menu::connectButtons()
-//{
-    //connect(homeButton, SIGNAL(clicked()), this, SLOT())
-//}

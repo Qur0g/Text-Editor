@@ -1,5 +1,6 @@
 #include "titlebar.h"
-#include "startwindow.h"
+#include "Buttons/windowbutton.h"
+#include "Buttons/resizebutton.h"
 
 #include <QMouseEvent>
 #include <QMimeData>
@@ -12,13 +13,27 @@
 TitleBar::TitleBar(QWidget *parent)
     : QWidget(parent)
 {
-    titleBarLayout = new QHBoxLayout(this);
+    mainLayout_ = new QHBoxLayout(this);
+    labelLayout_ = new QVBoxLayout();
+    buttonsLayout_ = new QHBoxLayout();
+    mainLayout_->addLayout(labelLayout_);
+    mainLayout_->addLayout(buttonsLayout_);
+
+    title_ = new QLabel("Word");
+
+    labelLayout_->addWidget(title_, 0, Qt::AlignCenter | Qt::AlignTop);
+
     setProperties();
     createButtons();
 }
 
 void TitleBar::setProperties()
 {
+    mainLayout_->setSpacing(0);
+    mainLayout_->setContentsMargins(0, 0, 0, 0);
+
+    buttonsLayout_->setAlignment(Qt::AlignTop);
+
     setAttribute(Qt::WA_StyledBackground);
     setAcceptDrops(true);
     setContextMenuPolicy(Qt::PreventContextMenu);
@@ -27,13 +42,25 @@ void TitleBar::setProperties()
 
 void TitleBar::createButtons()
 {
-    minimizeButton = new QPushButton("minimize", this);
-    resizeButton = new QPushButton("resize", this);
-    closeButton = new QPushButton("close", this);
+    minimizeButton_ = new WindowButton(this, ":/icons/minimize.png");
+    buttonsLayout_->addWidget(minimizeButton_);
 
-    titleBarLayout->addWidget(minimizeButton);
-    titleBarLayout->addWidget(resizeButton);
-    titleBarLayout->addWidget(closeButton);
+    resizeButton_ = new ResizeButton(this);
+    buttonsLayout_->addWidget(resizeButton_);
+
+    closeButton_ = new WindowButton(this, ":/icons/close.png");
+    buttonsLayout_->addWidget(closeButton_);
+    closeButton_->setStyleSheet("QPushButton { background-color: none; border: none; }"
+                          "QPushButton:hover { background-color: red; }");
+
+    buttons_.append(minimizeButton_);
+    buttons_.append(resizeButton_);
+    buttons_.append(closeButton_);
+
+    for(const auto& button : buttons_)
+    {
+        connect(button, &WindowButton::resizeWindowRequest, this, &TitleBar::resizeWindow);
+    }
 }
 
 void TitleBar::mousePressEvent(QMouseEvent* event)
@@ -55,29 +82,5 @@ void TitleBar::dragMoveEvent(QDragMoveEvent* event) {
 
 void TitleBar::dropEvent(QDropEvent *event)
 {
-    // format string: iconname;text
-
-    /*auto dataStrings = event->mimeData()->text().split(";");
-    auto act_icon = dataStrings.first();
-    auto act_name = dataStrings.at(1);
-
-    auto tempBtn = new QToolButton;
-
-    tempBtn->setDefaultAction(new QAction(QIcon::fromTheme(act_icon),act_name));
-
-    if (act_name == "kde"){
-        connect(tempBtn->defaultAction(),&QAction::triggered, [] ()
-                {
-                    qDebug()<<"kde_pressed";
-                });
-    } else if (act_name == "okular") {
-        connect(tempBtn->defaultAction(),&QAction::triggered, [] ()
-                {
-                    qDebug()<<"okular pressed";
-                });
-    }
-
-    //addWidget(tempBtn);
-
-    event->accept();*/
+    event->acceptProposedAction();
 }

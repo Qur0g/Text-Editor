@@ -2,6 +2,8 @@
 #include "menu.h"
 #include "titlebar.h"
 #include "mainwidget.h"
+#include "Buttons/windowbutton.h"
+#include "Buttons/resizebutton.h"
 
 #include <QScreen>
 #include <QGuiApplication>
@@ -12,24 +14,12 @@
 #include <QWindow>
 #include <QMenuBar>
 
-constexpr qreal border = 10;
+int StartWindow::border_ = 10;
 
 StartWindow::StartWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    setWindowFlags(Qt::FramelessWindowHint);
-    setAcceptDrops(true);
-    setAttribute(Qt::WA_Hover);
-    setMinimumSize(600, 400);
-
-    QList<QScreen*> screens = QGuiApplication::screens();
-
-    if (!screens.isEmpty()) {
-        QScreen *screen = screens.first();
-        QRect screenGeometry = screen->availableGeometry();
-        setGeometry(screenGeometry);
-    }
-    //resize(800, 600);
+    setProperties();
 
     buildUI();
 
@@ -38,125 +28,136 @@ StartWindow::StartWindow(QWidget *parent)
 
 StartWindow::~StartWindow() = default;
 
+void StartWindow::setProperties()
+{   
+    setWindowFlags(Qt::FramelessWindowHint);
+    setAcceptDrops(true);
+    setAttribute(Qt::WA_Hover);
+    setMinimumSize(600, 400);
+    setWindowState(Qt::WindowMaximized);
+
+
+    QList<QScreen*> screens = QGuiApplication::screens();
+
+    if (!screens.isEmpty()) {
+        QScreen *screen = screens.first();
+        QRect screenGeometry = screen->availableGeometry();
+        setGeometry(screenGeometry);
+
+        maxHeight_ = height();
+        maxWidth_ = width();
+    }
+}
+
 void StartWindow::buildUI()
 {
-    containerWidget = new QWidget(this);
-    setCentralWidget(containerWidget);
-    //containerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    containerWidget_ = new QWidget(this);
+    setCentralWidget(containerWidget_);
 
-    mainLayout = new QHBoxLayout(containerWidget);
-    mainLayout->setContentsMargins(0, 0, 0, 0);
-    mainLayout->setSpacing(0);
-    //mainLayout->setAlignment(Qt::AlignLeft);
+    mainLayout_ = new QHBoxLayout(containerWidget_);
+    mainLayout_->setContentsMargins(0, 0, 0, 0);
+    mainLayout_->setSpacing(0);
 
-    menuWidget = new Menu(containerWidget);
-    mainLayout->addWidget(menuWidget, 10);
+    menuWidget_ = new Menu(containerWidget_);
+    mainLayout_->addWidget(menuWidget_, 10);
 
-    mainWidget = new MainWidget(containerWidget);
-    mainLayout->addWidget(mainWidget, 100);
+    mainWidget_ = new MainWidget(containerWidget_);
+    mainLayout_->addWidget(mainWidget_, 90);
 }
 
 void StartWindow::makeConnections()
 {
-    auto titleBar = mainWidget->findChild<TitleBar*>();
+    auto titleBar = mainWidget_->findChild<TitleBar*>();
 
     connect(titleBar, &TitleBar::moveWindow, this, [this] ()
             {
                 this->windowHandle()->startSystemMove();
+
+                if(this->windowState() == Qt::WindowMaximized)
+                    this->setWindowState(Qt::WindowNoState);
             });
 
     connect(titleBar, &TitleBar::resizeWindow, this, &StartWindow::mousePressEvent);
 
-    connect(titleBar->closeButton, &QPushButton::clicked, [] ()
+    connect(titleBar->minimizeButton_, &QPushButton::clicked, this, [this] ()
             {
-                QApplication::quit();
+                this->setWindowState(Qt::WindowMinimized);
             });
 
-    connect(titleBar->resizeButton, &QPushButton::clicked, this, [this] ()
+    connect(titleBar->resizeButton_, &QPushButton::clicked, this, [this] ()
             {
                 if(this->windowState() == Qt::WindowMaximized)
+                {
                     this->setWindowState(Qt::WindowNoState);
+
+                    if((width() == maxWidth_) && (height() == maxHeight_))
+                        resize(maxWidth_ * 0.75, maxHeight_ * 0.75);
+                }
                 else
                     this->setWindowState(Qt::WindowMaximized);
             });
 
-    connect(titleBar->minimizeButton, &QPushButton::clicked, this, [this] ()
+    connect(titleBar->closeButton_, &QPushButton::clicked, [] ()
             {
-                this->setWindowState(Qt::WindowMinimized);
+                QApplication::quit();
             });
 }
 
 bool StartWindow::event(QEvent* event)
 {
-    if (event->type() == QEvent::HoverMove)
+    if(this->windowState() != Qt::WindowMaximized)
     {
-        auto p = dynamic_cast<QHoverEvent*>(event)->position();
-
-        if((p.y() < border) || (p.y() > (height() - border)))
+        if (event->type() == QEvent::HoverMove)
         {
-            if(p.x() < border)
+            auto p = dynamic_cast<QHoverEvent*>(event)->position();
+
+            if((p.y() < border_) || (p.y() > (height() - border_)))
             {
-                if((p.y() < border))
-                    setCursor(Qt::SizeFDiagCursor);
-                else if(p.y() > (height() - border))
-                    setCursor(Qt::SizeBDiagCursor);
+                if(p.x() < border_)
+                {
+                    if((p.y() < border_))
+                        setCursor(Qt::SizeFDiagCursor);
+                    else if(p.y() > (height() - border_))
+                        setCursor(Qt::SizeBDiagCursor);
+                }
+                else if(p.x() > (width() - border_))
+                {
+                    if(p.y() > (height() - border_))
+                        setCursor(Qt::SizeFDiagCursor);
+                    else if(p.y() < border_)
+                        setCursor(Qt::SizeBDiagCursor);
+                }
+                else
+                    setCursor(Qt::SizeVerCursor);
             }
-            else if(p.x() > (width() - border))
-            {
-                if(p.y() > (height() - border))
-                    setCursor(Qt::SizeFDiagCursor);
-                else if(p.y() < border)
-                    setCursor(Qt::SizeBDiagCursor);
-            }
+            else if((p.x() < border_) || (p.x() > (width() - border_)))
+                setCursor(Qt::SizeHorCursor);
             else
-                setCursor(Qt::SizeVerCursor);
+                setCursor(Qt::ArrowCursor);
         }
-        else if((p.x() < border) || (p.x() > (width() - border)))
-            setCursor(Qt::SizeHorCursor);
-        else
-            setCursor(Qt::ArrowCursor);
-    }
 
-    else if(event->type() == QEvent::MouseButtonPress)
-    {
-        auto p = dynamic_cast<QMouseEvent*>(event)->pos();
-        Qt::Edges edges;
-
-        if(p.x() > width() - border)
-            edges |= Qt::RightEdge;
-        if(p.x() < border)
-            edges |= Qt::LeftEdge;
-        if(p.y() > height() - border)
-            edges |= Qt::BottomEdge;
-        if(p.y() < border)
-            edges |= Qt::TopEdge;
-        if(edges != 0)
+        else if(event->type() == QEvent::MouseButtonPress)
         {
-            this->windowHandle()->startSystemResize(edges);
+            auto p = dynamic_cast<QMouseEvent*>(event)->pos();
+            Qt::Edges edges;
+
+            if(p.x() > width() - border_)
+                edges |= Qt::RightEdge;
+            if(p.x() < border_)
+                edges |= Qt::LeftEdge;
+            if(p.y() > height() - border_)
+                edges |= Qt::BottomEdge;
+            if(p.y() < border_)
+                edges |= Qt::TopEdge;
+            if(edges != 0)
+            {
+                this->windowHandle()->startSystemResize(edges);
+            }
         }
     }
 
     return QMainWindow::event(event);
 }
-
-/*void StartWindow::mousePressEvent(QMouseEvent* event)
-{
-    auto p = event->pos();
-    //qDebug() << p;
-    Qt::Edges edges;
-    if(p.x() > width() - border)
-        edges |= Qt::RightEdge;
-    if(p.x() < border)
-        edges |= Qt::LeftEdge;
-    if(p.y() > height() - border)
-        edges |= Qt::BottomEdge;
-    if(p.y() < border)
-        edges |= Qt::TopEdge;
-    if(edges != 0)
-    {
-        this->windowHandle()->startSystemResize(edges);
-    }
-}*/
 
 void StartWindow::dragEnterEvent(QDragEnterEvent* event)
 {

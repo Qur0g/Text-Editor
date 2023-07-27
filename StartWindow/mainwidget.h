@@ -15,9 +15,25 @@ public:
 signals:
 
 private:
-    QVBoxLayout* layout;
+    QVBoxLayout* layout_;
 
-    TitleBar* titleBar;
+    TitleBar* titleBar_;
+
+    QWidget* content_;
+
+    struct Content_
+    {
+        QWidget* content;
+
+        enum class Type
+        {
+            Home,
+            New,
+            Open
+        };
+    };
+
+
 };
 
 #endif // MAINWIDGET_H
