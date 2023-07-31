@@ -1,41 +1,29 @@
-#include "startwindow.h"
-#include "menu.h"
-#include "titlebar.h"
-#include "mainwidget.h"
-#include "Buttons/windowbutton.h"
-#include "Buttons/resizebutton.h"
+#include "basewindow.h"
+#include "Scripts/titlebar.h"
+#include "Scripts/WindowButtons/windowbutton.h"
+#include "Scripts/WindowButtons/resizebutton.h"
 
 #include <QScreen>
 #include <QGuiApplication>
 #include <QApplication>
 #include <QHoverEvent>
-#include <QPen>
-#include <QPainter>
 #include <QWindow>
-#include <QMenuBar>
 
-int StartWindow::border_ = 10;
+int BaseWindow::border_ = 10;
 
-StartWindow::StartWindow(QWidget *parent)
-    : QMainWindow(parent)
+BaseWindow::BaseWindow(QWidget *parent)
+    : QMainWindow{parent}
 {
     setProperties();
-
-    buildUI();
-
-    makeConnections();
 }
 
-StartWindow::~StartWindow() = default;
-
-void StartWindow::setProperties()
-{   
+void BaseWindow::setProperties()
+{
     setWindowFlags(Qt::FramelessWindowHint);
     setAcceptDrops(true);
     setAttribute(Qt::WA_Hover);
     setMinimumSize(600, 400);
     setWindowState(Qt::WindowMaximized);
-
 
     QList<QScreen*> screens = QGuiApplication::screens();
 
@@ -49,25 +37,15 @@ void StartWindow::setProperties()
     }
 }
 
-void StartWindow::buildUI()
+void BaseWindow::buildUI()
 {
     containerWidget_ = new QWidget(this);
     setCentralWidget(containerWidget_);
-
-    mainLayout_ = new QHBoxLayout(containerWidget_);
-    mainLayout_->setContentsMargins(0, 0, 0, 0);
-    mainLayout_->setSpacing(0);
-
-    menuWidget_ = new Menu(containerWidget_);
-    mainLayout_->addWidget(menuWidget_, 10);
-
-    mainWidget_ = new MainWidget(containerWidget_);
-    mainLayout_->addWidget(mainWidget_, 90);
 }
 
-void StartWindow::makeConnections()
+void BaseWindow::makeConnections()
 {
-    auto titleBar = mainWidget_->findChild<TitleBar*>();
+    auto titleBar = getTitleBar();
 
     connect(titleBar, &TitleBar::moveWindow, this, [this] ()
             {
@@ -77,7 +55,7 @@ void StartWindow::makeConnections()
                     this->setWindowState(Qt::WindowNoState);
             });
 
-    connect(titleBar, &TitleBar::resizeWindow, this, &StartWindow::mousePressEvent);
+    connect(titleBar, &TitleBar::resizeWindow, this, &BaseWindow::mousePressEvent);
 
     connect(titleBar->minimizeButton_, &QPushButton::clicked, this, [this] ()
             {
@@ -103,7 +81,7 @@ void StartWindow::makeConnections()
             });
 }
 
-bool StartWindow::event(QEvent* event)
+bool BaseWindow::event(QEvent* event)
 {
     if(this->windowState() != Qt::WindowMaximized)
     {
@@ -159,17 +137,17 @@ bool StartWindow::event(QEvent* event)
     return QMainWindow::event(event);
 }
 
-void StartWindow::dragEnterEvent(QDragEnterEvent* event)
+void BaseWindow::dragEnterEvent(QDragEnterEvent* event)
 {
     event->acceptProposedAction();
 }
 
-void StartWindow::dragMoveEvent(QDragMoveEvent* event)
+void BaseWindow::dragMoveEvent(QDragMoveEvent* event)
 {
     event->acceptProposedAction();
 }
 
-void StartWindow::dropEvent(QDropEvent* event)
+void BaseWindow::dropEvent(QDropEvent* event)
 {
     event->acceptProposedAction();
 }

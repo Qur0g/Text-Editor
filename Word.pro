@@ -9,30 +9,36 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Contents/homecontent.cpp \
-    Contents/newcontent.cpp \
-    Contents/opencontent.cpp \
-    StartWindow/Buttons/resizebutton.cpp \
-    StartWindow/Buttons/windowbutton.cpp \
-    StartWindow/mainwidget.cpp \
-    StartWindow/menu.cpp \
-    StartWindow/startwindow.cpp \
-    StartWindow/titlebar.cpp \
-    main.cpp \
+    Scripts/DocumentWindow/documentwindow.cpp \
+    Scripts/StartWindow/Contents/homecontent.cpp \
+    Scripts/StartWindow/Contents/newcontent.cpp \
+    Scripts/StartWindow/Contents/opencontent.cpp \
+    Scripts/StartWindow/Contents/template.cpp \
+    Scripts/StartWindow/mainwidget.cpp \
+    Scripts/StartWindow/menu.cpp \
+    Scripts/StartWindow/startwindow.cpp \
+    Scripts/WindowButtons/resizebutton.cpp \
+    Scripts/WindowButtons/windowbutton.cpp \
+    Scripts/basewindow.cpp \
+    Scripts/main.cpp \
+    Scripts/titlebar.cpp
 
 HEADERS += \
-    Contents/homecontent.h \
-    Contents/newcontent.h \
-    Contents/opencontent.h \
-    StartWindow/Buttons/resizebutton.h \
-    StartWindow/Buttons/windowbutton.h \
-    StartWindow/mainwidget.h \
-    StartWindow/menu.h \
-    StartWindow/startwindow.h \
-    StartWindow/titlebar.h \
+    Scripts/DocumentWindow/documentwindow.h \
+    Scripts/StartWindow/Contents/homecontent.h \
+    Scripts/StartWindow/Contents/newcontent.h \
+    Scripts/StartWindow/Contents/opencontent.h \
+    Scripts/StartWindow/Contents/template.h \
+    Scripts/StartWindow/mainwidget.h \
+    Scripts/StartWindow/menu.h \
+    Scripts/StartWindow/startwindow.h \
+    Scripts/WindowButtons/resizebutton.h \
+    Scripts/WindowButtons/windowbutton.h \
+    Scripts/basewindow.h \
+    Scripts/titlebar.h
 
 FORMS += \
-    StartWindow/startwindow.ui \
+    Scripts/StartWindow/startwindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

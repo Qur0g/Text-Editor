@@ -1,23 +1,18 @@
 #include "titlebar.h"
-#include "Buttons/windowbutton.h"
-#include "Buttons/resizebutton.h"
+#include "Scripts/WindowButtons/windowbutton.h"
+#include "Scripts/WindowButtons/resizebutton.h"
 
 #include <QMouseEvent>
-#include <QMimeData>
 #include <QDebug>
-#include <QApplication>
-#include <QToolButton>
-#include <QAction>
-#include <QToolBar>
 
 TitleBar::TitleBar(QWidget *parent)
     : QWidget(parent)
 {
     mainLayout_ = new QHBoxLayout(this);
     labelLayout_ = new QVBoxLayout();
-    buttonsLayout_ = new QHBoxLayout();
+    windowButtonsLayout_ = new QHBoxLayout();
     mainLayout_->addLayout(labelLayout_);
-    mainLayout_->addLayout(buttonsLayout_);
+    mainLayout_->addLayout(windowButtonsLayout_);
 
     title_ = new QLabel("Word");
 
@@ -32,7 +27,7 @@ void TitleBar::setProperties()
     mainLayout_->setSpacing(0);
     mainLayout_->setContentsMargins(0, 0, 0, 0);
 
-    buttonsLayout_->setAlignment(Qt::AlignTop);
+    windowButtonsLayout_->setAlignment(Qt::AlignTop);
 
     setAttribute(Qt::WA_StyledBackground);
     setAcceptDrops(true);
@@ -43,21 +38,21 @@ void TitleBar::setProperties()
 void TitleBar::createButtons()
 {
     minimizeButton_ = new WindowButton(this, ":/icons/minimize.png");
-    buttonsLayout_->addWidget(minimizeButton_);
+    windowButtonsLayout_->addWidget(minimizeButton_);
 
     resizeButton_ = new ResizeButton(this);
-    buttonsLayout_->addWidget(resizeButton_);
+    windowButtonsLayout_->addWidget(resizeButton_);
 
     closeButton_ = new WindowButton(this, ":/icons/close.png");
-    buttonsLayout_->addWidget(closeButton_);
+    windowButtonsLayout_->addWidget(closeButton_);
     closeButton_->setStyleSheet("QPushButton { background-color: none; border: none; }"
                           "QPushButton:hover { background-color: red; }");
 
-    buttons_.append(minimizeButton_);
-    buttons_.append(resizeButton_);
-    buttons_.append(closeButton_);
+    windowButtons_.append(minimizeButton_);
+    windowButtons_.append(resizeButton_);
+    windowButtons_.append(closeButton_);
 
-    for(const auto& button : buttons_)
+    for(const auto& button : windowButtons_)
     {
         connect(button, &WindowButton::resizeWindowRequest, this, &TitleBar::resizeWindow);
     }

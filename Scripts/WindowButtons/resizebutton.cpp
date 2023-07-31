@@ -1,5 +1,5 @@
 #include "resizebutton.h"
-#include "StartWindow/titlebar.h"
+#include "Scripts/titlebar.h"
 
 ResizeButton::ResizeButton(TitleBar* parent)
     : WindowButton(parent, ":/icons/resize2.png")

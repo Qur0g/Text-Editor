@@ -1,8 +1,6 @@
 #include "mainwidget.h"
-#include "Contents/homecontent.h"
-#include "titlebar.h"
-
-#include <QApplication>
+#include "Scripts/StartWindow/Contents/homecontent.h"
+#include "Scripts/titlebar.h"
 
 MainWidget::MainWidget(QWidget *parent)
     : QWidget{parent}

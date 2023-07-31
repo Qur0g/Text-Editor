@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 
 class TitleBar;
+class HomeContent;
 
 class MainWidget : public QWidget
 {
@@ -19,21 +20,20 @@ private:
 
     TitleBar* titleBar_;
 
-    QWidget* content_;
+    HomeContent* content_;
 
-    struct Content_
+    /*struct Content
     {
-        QWidget* content;
-
         enum class Type
         {
             Home,
             New,
             Open
         };
-    };
 
-
+        QWidget* content;
+        Type type;
+    };*/
 };
 
 #endif // MAINWIDGET_H

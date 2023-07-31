@@ -1,5 +1,5 @@
 #include "windowbutton.h"
-#include "StartWindow/startwindow.h"
+#include "Scripts/basewindow.h"
 
 #include <QEvent>
 
@@ -21,9 +21,9 @@ void WindowButton::setProperties()
 bool WindowButton::event(QEvent* event)
 {
     if (event->type() == QEvent::Enter)
-        StartWindow::border_ = 2;
+        BaseWindow::border_ = 2;
     if(event->type() == QEvent::Leave)
-        StartWindow::border_ = 10;
+        BaseWindow::border_ = 10;
 
     return QPushButton::event(event);
 }

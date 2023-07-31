@@ -35,10 +35,10 @@ private:
     void createButtons();
 
     QHBoxLayout* mainLayout_;
+    QHBoxLayout* windowButtonsLayout_;
     QVBoxLayout* labelLayout_;
-    QHBoxLayout* buttonsLayout_;
 
-    QVector<WindowButton*> buttons_;
+    QVector<WindowButton*> windowButtons_;
 
     QLabel* title_;
 };
