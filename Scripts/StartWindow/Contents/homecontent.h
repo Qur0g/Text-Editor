@@ -14,8 +14,8 @@ public:
 signals:
 
 private:
-    QWidget* topWidget_;
-    QWidget* bottomWidget_;
+    QWidget* m_topWidget;
+    QWidget* m_bottomWidget;
 
     //QList<Template> templates_;
 

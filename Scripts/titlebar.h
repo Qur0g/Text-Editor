@@ -12,35 +12,42 @@ class TitleBar : public QWidget
 {
     Q_OBJECT
 public:
-    TitleBar(QWidget *parent = nullptr);   
+    TitleBar(QWidget *parent = nullptr);
 
-    void resizeButtonClick();
+    void createWindowButtons();
+    void setTitle(QString title);
 
-    WindowButton* minimizeButton_;
-    ResizeButton* resizeButton_;
-    WindowButton* closeButton_;
+    WindowButton* m_minimizeButton;
+    ResizeButton* m_resizeButton;
+    WindowButton* m_closeButton;
 
 signals:
     void moveWindow();
-    void resizeWindow(QMouseEvent* event);
+    void resizeWindow(QMouseEvent*);
 
 protected:
-    void dragEnterEvent(QDragEnterEvent *event) override;
-    void dragMoveEvent(QDragMoveEvent *p_event) override;
-    void dropEvent(QDropEvent *event) override;
-    void mousePressEvent(QMouseEvent* event) override;
+    void dragEnterEvent(QDragEnterEvent*) override;
+    void dragMoveEvent(QDragMoveEvent*) override;
+
+    void dropEvent(QDropEvent*) override;
+    void resizeEvent(QResizeEvent*) override;
+
+    void mousePressEvent(QMouseEvent*) override;
+    void mouseMoveEvent(QMouseEvent*) override;
+    void mouseReleaseEvent(QMouseEvent*) override;
+    void mouseDoubleClickEvent(QMouseEvent*) override;
+
+    QHBoxLayout* m_mainLayout;
 
 private:
     void setProperties();
-    void createButtons();
 
-    QHBoxLayout* mainLayout_;
-    QHBoxLayout* windowButtonsLayout_;
-    QVBoxLayout* labelLayout_;
+    QHBoxLayout* m_windowButtonsLayout;
+    QVector<WindowButton*> m_windowButtons;
 
-    QVector<WindowButton*> windowButtons_;
+    QLabel* m_title = nullptr;
 
-    QLabel* title_;
+    bool isDragging = false;
 };
 
 #endif // HEADBAR_H

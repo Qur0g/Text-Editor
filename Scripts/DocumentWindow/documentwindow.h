@@ -1,10 +1,13 @@
 #ifndef DOCUMENTWINDOW_H
 #define DOCUMENTWINDOW_H
 
+#include "Scripts/basewindow.h"
+
 #include <QMainWindow>
-#include <Scripts/basewindow.h>
+#include <QVBoxLayout>
 
 class TitleBar;
+class EditTitleBar;
 
 class DocumentWindow : public BaseWindow
 {
@@ -18,7 +21,8 @@ private:
     void buildUI() final;
     TitleBar* getTitleBar() const final;
 
-    TitleBar* titleBar_;
+    QVBoxLayout* m_mainLayout;
+    EditTitleBar* m_titleBar;
 };
 
 #endif // DOCUMENTWINDOW_H

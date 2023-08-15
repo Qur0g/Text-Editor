@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     Scripts/DocumentWindow/documentwindow.cpp \
+    Scripts/DocumentWindow/edittitlebar.cpp \
     Scripts/StartWindow/Contents/homecontent.cpp \
     Scripts/StartWindow/Contents/newcontent.cpp \
     Scripts/StartWindow/Contents/opencontent.cpp \
@@ -21,10 +22,12 @@ SOURCES += \
     Scripts/WindowButtons/windowbutton.cpp \
     Scripts/basewindow.cpp \
     Scripts/main.cpp \
-    Scripts/titlebar.cpp
+    Scripts/titlebar.cpp \
+    Scripts/usersettings.cpp
 
 HEADERS += \
     Scripts/DocumentWindow/documentwindow.h \
+    Scripts/DocumentWindow/edittitlebar.h \
     Scripts/StartWindow/Contents/homecontent.h \
     Scripts/StartWindow/Contents/newcontent.h \
     Scripts/StartWindow/Contents/opencontent.h \
@@ -35,7 +38,8 @@ HEADERS += \
     Scripts/WindowButtons/resizebutton.h \
     Scripts/WindowButtons/windowbutton.h \
     Scripts/basewindow.h \
-    Scripts/titlebar.h
+    Scripts/titlebar.h \
+    Scripts/usersettings.h
 
 FORMS += \
     Scripts/StartWindow/startwindow.ui \

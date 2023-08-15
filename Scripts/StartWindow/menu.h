@@ -21,12 +21,12 @@ private:
     QPushButton* createButton(QString name, QKeySequence shortcut);
     //void connectButtons();
 
-    QVBoxLayout* menuLayout_;
+    QVBoxLayout* m_menuLayout;
 
     //QVector<QPushButton*> buttons;
-    QPushButton* homeButton_;
-    QPushButton* newButton_;
-    QPushButton* openButton_;
+    QPushButton* m_homeButton;
+    QPushButton* m_newButton;
+    QPushButton* m_openButton;
 };
 
 #endif // MENU_H

@@ -16,11 +16,11 @@ public:
 signals:
 
 private:
-    QVBoxLayout* layout_;
+    QVBoxLayout* m_layout;
 
-    TitleBar* titleBar_;
+    TitleBar* m_titleBar;
 
-    HomeContent* content_;
+    HomeContent* m_content;
 
     /*struct Content
     {

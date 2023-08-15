@@ -21,9 +21,9 @@ protected:
 
     void setProperties();
 
-    QString iconPath_;
-    const int width_ = 50;
-    const int height_ = 25;
+    QString m_iconPath;
+    const int m_width = 50;
+    const int m_height = 25;
 
 private: 
 

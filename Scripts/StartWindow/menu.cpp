@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "qdebug.h"
 
 Menu::Menu(QWidget *parent)
     : QWidget{parent}
@@ -7,8 +8,8 @@ Menu::Menu(QWidget *parent)
     setStyleSheet("background-color: blue;");
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
-    menuLayout_ = new QVBoxLayout(this);
-    menuLayout_->setSpacing(0);
+    m_menuLayout = new QVBoxLayout(this);
+    m_menuLayout->setSpacing(0);
 
     createButtons();
 }
@@ -21,16 +22,16 @@ void Menu::createButtons()
    // buttons.append(newButton);
    // buttons.append(openButton);
 
-    homeButton_ = createButton("Home", (Qt::CTRL | Qt::Key_H));
-    newButton_ = createButton("New", (Qt::CTRL | Qt::Key_N));
-    openButton_ = createButton("Open", (Qt::CTRL | Qt::Key_O));
+    m_homeButton = createButton("Home", (Qt::CTRL | Qt::Key_H));
+    m_newButton = createButton("New", (Qt::CTRL | Qt::Key_N));
+    m_openButton = createButton("Open", (Qt::CTRL | Qt::Key_O));
 }
 
 QPushButton* Menu::createButton(QString name, QKeySequence shortcut)
 {
     auto button = new QPushButton(name, this);
     button->setShortcut(shortcut);
-    menuLayout_->addWidget(button);
+    m_menuLayout->addWidget(button);
 
     return button;
 }

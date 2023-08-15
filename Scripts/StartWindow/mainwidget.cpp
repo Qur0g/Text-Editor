@@ -5,13 +5,15 @@
 MainWidget::MainWidget(QWidget *parent)
     : QWidget{parent}
 {
-    layout_ = new QVBoxLayout(this);
-    layout_->setSpacing(0);
-    layout_->setContentsMargins(0, 0, 0, 0);
+    m_layout = new QVBoxLayout(this);
+    setLayout(m_layout);
+    m_layout->setSpacing(0);
+    m_layout->setContentsMargins(0, 0, 0, 0);
 
-    titleBar_ = new TitleBar(this);
-    layout_->addWidget(titleBar_, 10);
+    m_titleBar = new TitleBar(this);
+    m_layout->addWidget(m_titleBar, 10);
+    m_titleBar->setTitle("Word");
 
-    content_ = new HomeContent(this);
-    layout_->addWidget(content_, 90);
+    m_content = new HomeContent(this);
+    m_layout->addWidget(m_content, 90);
 }

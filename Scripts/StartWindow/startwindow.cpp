@@ -7,7 +7,6 @@ StartWindow::StartWindow(QWidget *parent)
     : BaseWindow(parent)
 {
     buildUI();
-
     makeConnections();
 }
 
@@ -17,18 +16,19 @@ void StartWindow::buildUI()
 {
     BaseWindow::buildUI();
 
-    mainLayout_ = new QHBoxLayout(containerWidget_);
-    mainLayout_->setContentsMargins(0, 0, 0, 0);
-    mainLayout_->setSpacing(0);
+    m_mainLayout = new QHBoxLayout(m_containerWidget);
+    this->setLayout(m_mainLayout);
+    m_mainLayout->setContentsMargins(0, 0, 0, 0);
+    m_mainLayout->setSpacing(0);
 
-    menu_ = new Menu(containerWidget_);
-    mainLayout_->addWidget(menu_, 10);
+    m_menu = new Menu(m_containerWidget);
+    m_mainLayout->addWidget(m_menu, 10);
 
-    mainWidget_ = new MainWidget(containerWidget_);
-    mainLayout_->addWidget(mainWidget_, 90);
+    m_mainWidget = new MainWidget(m_containerWidget);
+    m_mainLayout->addWidget(m_mainWidget, 90);
 }
 
 TitleBar* StartWindow::getTitleBar() const
 {
-    return mainWidget_->findChild<TitleBar*>();
+    return m_mainWidget->findChild<TitleBar*>();
 }

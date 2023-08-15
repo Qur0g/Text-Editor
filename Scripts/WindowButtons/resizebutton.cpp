@@ -12,23 +12,23 @@ void ResizeButton::toggleIcon()
 {
     if(qobject_cast<TitleBar*>(sender()))
     {
-        if(iconPath_ == noStateIconPath_)
+        if(m_iconPath == m_noStateIconPath)
         {
-            setIcon(QIcon(maximizedIconPath_));
-            iconPath_ = maximizedIconPath_;
+            setIcon(QIcon(m_maximizedIconPath));
+            m_iconPath = m_maximizedIconPath;
         }
     }
     else
     {
-        if(iconPath_ == maximizedIconPath_)
+        if(m_iconPath == m_maximizedIconPath)
         {
-            setIcon(QIcon(noStateIconPath_));
-            iconPath_ = noStateIconPath_;
+            setIcon(QIcon(m_noStateIconPath));
+            m_iconPath = m_noStateIconPath;
         }
         else
         {
-            setIcon(QIcon(maximizedIconPath_));
-            iconPath_ = maximizedIconPath_;
+            setIcon(QIcon(m_maximizedIconPath));
+            m_iconPath = m_maximizedIconPath;
         }
     }
 }

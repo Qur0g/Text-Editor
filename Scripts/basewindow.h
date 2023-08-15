@@ -11,9 +11,7 @@ class BaseWindow : public QMainWindow
 public:
     explicit BaseWindow(QWidget *parent = nullptr);
 
-    static int border_;
-
-signals:
+    static int m_border;
 
 protected:
     bool event(QEvent *event) override;
@@ -26,13 +24,13 @@ protected:
 
     void makeConnections();
 
-    QWidget* containerWidget_;
+    QWidget* m_containerWidget;
 
 private:
-    void setProperties();      
+    void setProperties();
 
-    int maxWidth_;
-    int maxHeight_;
+    int m_maxWidth = 600;
+    int m_maxHeight = 400;
 };
 
 #endif // BASEWINDOW_H

@@ -15,15 +15,13 @@ public:
     StartWindow(QWidget *parent = nullptr);
     ~StartWindow();
 
-protected:
-
 private:
     void buildUI() final;
     TitleBar* getTitleBar() const final;
 
-    QHBoxLayout* mainLayout_;
+    QHBoxLayout* m_mainLayout;
 
-    Menu* menu_;
-    MainWidget* mainWidget_;
+    Menu* m_menu;
+    MainWidget* m_mainWidget;
 };
 #endif // STARTWINDOW_H
