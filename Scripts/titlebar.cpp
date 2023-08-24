@@ -3,13 +3,16 @@
 #include "Scripts/WindowButtons/resizebutton.h"
 
 #include <QMouseEvent>
-#include <QDebug>
-#include <QTextBrowser>
+#include <QScreen>
+#include <QGuiApplication>
 
 TitleBar::TitleBar(QWidget *parent)
     : QWidget(parent)
 {
     m_mainLayout = new QHBoxLayout(this);
+    //m_mainLayout = new QGridLayout(this);
+    //m_mainLayout->setColumnMinimumWidth(0, 500);
+    //m_mainLayout->setColumnMinimumWidth(2, 500);
     this->setLayout(m_mainLayout);
 
     setProperties();
@@ -30,9 +33,10 @@ void TitleBar::setProperties()
 void TitleBar::createWindowButtons()
 {
     m_windowButtonsLayout = new QHBoxLayout();
-    m_mainLayout->addLayout(m_windowButtonsLayout);
+    m_mainLayout->addLayout(m_windowButtonsLayout, 35);
+    //m_mainLayout->addLayout(m_windowButtonsLayout, 0, 2);
 
-    m_windowButtonsLayout->setAlignment(Qt::AlignTop | Qt::AlignRight);
+    m_windowButtonsLayout->setAlignment(Qt::AlignRight | Qt::AlignTop | Qt::AlignHCenter);
 
     m_minimizeButton = new WindowButton(this, ":/icons/minimize.png");
     m_resizeButton = new ResizeButton(this);
@@ -56,10 +60,10 @@ void TitleBar::setTitle(QString title)
 {
     m_title = new QLabel(title, this);
     m_title->setContentsMargins(0, 0, 0, 0);
-    m_title->setAlignment(Qt::AlignTop | Qt::AlignCenter);
+    m_title->setAlignment(Qt::AlignCenter);
 
-    int windowCenter = (window()->width() * 0.4) - m_title->width();
-    m_title->move(windowCenter, -5);
+    int windowCenter = (QGuiApplication::primaryScreen()->geometry().width() * 0.4) - m_title->width() / 2;
+    m_title->move(windowCenter, 0);
 }
 
 void TitleBar::mousePressEvent(QMouseEvent* event)
@@ -92,8 +96,8 @@ void TitleBar::resizeEvent(QResizeEvent* event)
 
     if(m_title != nullptr)
     {
-        int windowCenter = (window()->width() * 0.4) - m_title->width() / 2;
-        m_title->move(windowCenter, -5);
+        int windowCenter = (QGuiApplication::primaryScreen()->geometry().width() * 0.4) - m_title->width() / 2;
+        m_title->move(windowCenter, 0);
     }
 }
 

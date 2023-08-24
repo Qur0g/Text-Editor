@@ -2,7 +2,8 @@
 #define TITLEBAR_H
 
 #include <QPushButton>
-#include <QHBoxLayout>
+//#include <QHBoxLayout>
+#include <QGridLayout>
 #include <QLabel>
 
 class WindowButton;
@@ -38,6 +39,7 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent*) override;
 
     QHBoxLayout* m_mainLayout;
+    //QGridLayout* m_mainLayout;
 
 private:
     void setProperties();

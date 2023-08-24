@@ -14,10 +14,11 @@ StartWindow::~StartWindow() = default;
 
 void StartWindow::buildUI()
 {
+    qDebug() << this->geometry();
     BaseWindow::buildUI();
 
     m_mainLayout = new QHBoxLayout(m_containerWidget);
-    this->setLayout(m_mainLayout);
+    //this->setLayout(m_mainLayout);
     m_mainLayout->setContentsMargins(0, 0, 0, 0);
     m_mainLayout->setSpacing(0);
 

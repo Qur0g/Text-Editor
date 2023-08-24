@@ -1,5 +1,4 @@
 #include "menu.h"
-#include "qdebug.h"
 
 Menu::Menu(QWidget *parent)
     : QWidget{parent}

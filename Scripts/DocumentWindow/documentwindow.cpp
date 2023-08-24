@@ -18,10 +18,10 @@ void DocumentWindow::buildUI()
     m_mainLayout->setSpacing(0);
 
     m_titleBar = new EditTitleBar(this);
-    m_mainLayout->addWidget(m_titleBar, 10);
+    m_mainLayout->addWidget(m_titleBar, 5);
 
     auto d = new QWidget(this);
-    m_mainLayout->addWidget(d, 90);
+    m_mainLayout->addWidget(d, 95);
 }
 
 TitleBar* DocumentWindow::getTitleBar() const

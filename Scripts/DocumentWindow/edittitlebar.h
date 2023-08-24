@@ -4,6 +4,7 @@
 #include <Scripts/titlebar.h>
 
 #include <QToolButton>
+#include <QLineEdit>
 
 class EditTitleBar : public TitleBar
 {
@@ -21,14 +22,24 @@ public:
     };
     Q_ENUM(ButtonType);
 
+protected:
+    void resizeEvent(QResizeEvent*) override;
+
+private slots:
+    void performSearch();
+    void updateSearchResults(const QString& text);
+
 private:
-    void addToQuickAccess(ButtonType);
+    void createQuickAccess();
+    void addToQuickAccess(ButtonType& type);
+    void createSearchBar();
 
     QHBoxLayout* m_quickAccessLayout;
-
-    QList<QString> m_quickAccessButtons;
-
+    QList<QAbstractButton*> m_quickAccessButtons;
     QToolButton* m_customizeQuickAccessButton;
+
+    QLineEdit* m_searchLineEdit;
+    QLabel *resultLabel;
 };
 
 #endif // EDITTITLEBAR_H

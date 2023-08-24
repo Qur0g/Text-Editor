@@ -23,10 +23,6 @@ protected:
 
     QString m_iconPath;
     const int m_width = 50;
-    const int m_height = 25;
-
-private: 
-
 };
 
 #endif // WINDOWBUTTON_H
