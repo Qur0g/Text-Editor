@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <QScrollArea>
+
 class TitleBar;
 
 class BaseWindow : public QMainWindow

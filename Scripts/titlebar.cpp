@@ -32,11 +32,12 @@ void TitleBar::setProperties()
 
 void TitleBar::createWindowButtons()
 {
-    m_windowButtonsLayout = new QHBoxLayout();
-    m_mainLayout->addLayout(m_windowButtonsLayout, 35);
+    //m_windowButtonsLayout = new QHBoxLayout();
+    auto windowButtonsLayout = new QHBoxLayout();
+    m_mainLayout->addLayout(windowButtonsLayout, 35);
     //m_mainLayout->addLayout(m_windowButtonsLayout, 0, 2);
 
-    m_windowButtonsLayout->setAlignment(Qt::AlignRight | Qt::AlignTop | Qt::AlignHCenter);
+    windowButtonsLayout->setAlignment(Qt::AlignRight | Qt::AlignTop);// | Qt::AlignHCenter);
 
     m_minimizeButton = new WindowButton(this, ":/icons/minimize.png");
     m_resizeButton = new ResizeButton(this);
@@ -48,7 +49,7 @@ void TitleBar::createWindowButtons()
 
     for(const auto& button : m_windowButtons)
     {
-        m_windowButtonsLayout->addWidget(button);
+        windowButtonsLayout->addWidget(button);
         connect(button, &WindowButton::resizeWindowRequest, this, &TitleBar::resizeWindow);
     }
 

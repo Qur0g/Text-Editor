@@ -3,7 +3,7 @@
 #include "Scripts/titlebar.h"
 #include "mainwidget.h"
 
-StartWindow::StartWindow(QWidget *parent)
+StartWindow::StartWindow(QWidget* parent)
     : BaseWindow(parent)
 {
     buildUI();
@@ -13,20 +13,19 @@ StartWindow::StartWindow(QWidget *parent)
 StartWindow::~StartWindow() = default;
 
 void StartWindow::buildUI()
-{
-    qDebug() << this->geometry();
+{   
     BaseWindow::buildUI();
 
-    m_mainLayout = new QHBoxLayout(m_containerWidget);
+    auto mainLayout = new QHBoxLayout(m_containerWidget);
     //this->setLayout(m_mainLayout);
-    m_mainLayout->setContentsMargins(0, 0, 0, 0);
-    m_mainLayout->setSpacing(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
 
     m_menu = new Menu(m_containerWidget);
-    m_mainLayout->addWidget(m_menu, 10);
+    mainLayout->addWidget(m_menu, 10);
 
     m_mainWidget = new MainWidget(m_containerWidget);
-    m_mainLayout->addWidget(m_mainWidget, 90);
+    mainLayout->addWidget(m_mainWidget, 90);
 }
 
 TitleBar* StartWindow::getTitleBar() const

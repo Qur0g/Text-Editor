@@ -2,7 +2,6 @@
 #define MAINWIDGET_H
 
 #include <QWidget>
-#include <QVBoxLayout>
 
 class TitleBar;
 class HomeContent;
@@ -16,8 +15,6 @@ public:
 signals:
 
 private:
-    QVBoxLayout* m_layout;
-
     TitleBar* m_titleBar;
 
     HomeContent* m_content;

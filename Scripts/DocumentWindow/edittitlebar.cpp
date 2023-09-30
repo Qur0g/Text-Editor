@@ -18,7 +18,7 @@ void EditTitleBar::createQuickAccess()
     m_quickAccessLayout = new QHBoxLayout();
     m_mainLayout->insertLayout(0, m_quickAccessLayout, 35);
     //m_mainLayout->addLayout(m_quickAccessLayout, 0, 0);
-    m_quickAccessLayout->setAlignment(Qt::AlignLeft | Qt::AlignBottom | Qt::AlignHCenter);
+    m_quickAccessLayout->setAlignment(Qt::AlignLeft | Qt::AlignBottom);// | Qt::AlignHCenter);
 
     QList<QString> loadedButtons = UserSettings::loadQuickAccess();
     QMetaObject metaObject = EditTitleBar::staticMetaObject;
@@ -31,7 +31,7 @@ void EditTitleBar::createQuickAccess()
 
         EditTitleBar::ButtonType enumValue = static_cast<EditTitleBar::ButtonType>(enumIndex);
 
-        addToQuickAccess(enumValue);//addToQuickAccess(enumValue);addToQuickAccess(enumValue);addToQuickAccess(enumValue);
+        addToQuickAccess(enumValue);//addToQuickAccess(enumValue);addToQuickAccess(enumValue);//addToQuickAccess(enumValue);
     }
 
     m_customizeQuickAccessButton = new QToolButton(this);

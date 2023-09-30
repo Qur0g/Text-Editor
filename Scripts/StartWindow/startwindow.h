@@ -2,7 +2,6 @@
 #define STARTWINDOW_H
 
 #include "Scripts/basewindow.h"
-#include <QHBoxLayout>
 
 class Menu;
 class MainWidget;
@@ -18,8 +17,6 @@ public:
 private:
     void buildUI() final;
     TitleBar* getTitleBar() const final;
-
-    QHBoxLayout* m_mainLayout;
 
     Menu* m_menu;
     MainWidget* m_mainWidget;

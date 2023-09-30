@@ -31,6 +31,7 @@ protected:
     void dragMoveEvent(QDragMoveEvent*) override;
 
     void dropEvent(QDropEvent*) override;
+
     void resizeEvent(QResizeEvent*) override;
 
     void mousePressEvent(QMouseEvent*) override;
@@ -44,7 +45,7 @@ protected:
 private:
     void setProperties();
 
-    QHBoxLayout* m_windowButtonsLayout;
+    //QHBoxLayout* m_windowButtonsLayout;
     QVector<WindowButton*> m_windowButtons;
 
     QLabel* m_title = nullptr;

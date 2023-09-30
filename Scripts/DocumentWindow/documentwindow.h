@@ -8,6 +8,8 @@
 
 class TitleBar;
 class EditTitleBar;
+class Ribbon;
+class Workspace;
 
 class DocumentWindow : public BaseWindow
 {
@@ -22,7 +24,12 @@ private:
     TitleBar* getTitleBar() const final;
 
     QVBoxLayout* m_mainLayout;
+
     EditTitleBar* m_titleBar;
+
+    Ribbon* m_ribbon;
+
+    Workspace* m_workspace;
 };
 
 #endif // DOCUMENTWINDOW_H
