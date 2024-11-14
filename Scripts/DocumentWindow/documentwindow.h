@@ -22,13 +22,14 @@ signals:
 private:
     void buildUI() final;
     TitleBar* getTitleBar() const final;
+    void makeWorkspaceConnections();
+
 
     QVBoxLayout* m_mainLayout;
 
     EditTitleBar* m_titleBar;
 
     Ribbon* m_ribbon;
-
     Workspace* m_workspace;
 };
 

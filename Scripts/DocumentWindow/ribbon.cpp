@@ -25,9 +25,12 @@ Ribbon::Ribbon(QWidget *parent)
 
     QTabWidget* tabWidget = new QTabWidget(this);
     layout->addWidget(tabWidget);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     //Tab* fileTab = new FileTab("File");
-    Tab* homeTab = new HomeTab("Home");
+    HomeTab* homeTab = new HomeTab("Home");
+    connect(homeTab, &HomeTab::pasteButtonClicked, this, &Ribbon::pasteButtonClicked);
+    connect(homeTab, &HomeTab::copyButtonClicked, this, &Ribbon::copyButtonClicked);
 
     //tabWidget->addTab(fileTab, "File");
     tabWidget->addTab(homeTab, "Home");

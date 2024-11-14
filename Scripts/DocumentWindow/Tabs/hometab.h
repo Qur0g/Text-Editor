@@ -5,6 +5,7 @@
 
 class HomeTab : public Tab
 {
+    Q_OBJECT
 public:
     explicit HomeTab(QString name = "");
     HomeTab(QWidget* parent = nullptr, QString name = "");
@@ -12,9 +13,17 @@ public:
     void displayContent() override;
     void hideContent() override;
 
+signals:
+    void pasteButtonClicked();
+    void cutButtonClicked();
+    void copyButtonClicked();
+    void undoButtonClicked();
+    void redoButtonClicked();
+    void formatButtonClicked();
+
 private:
-    void createUndoRedoSection();
     void createClipboardSection();
+    void createFontSection();
 };
 
 #endif // HOMETAB_H

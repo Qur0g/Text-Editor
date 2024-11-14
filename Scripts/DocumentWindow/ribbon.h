@@ -14,6 +14,14 @@ class Ribbon : public QWidget
 public:
     explicit Ribbon(QWidget *parent = nullptr);
 
+signals:
+    void pasteButtonClicked();
+    void cutButtonClicked();
+    void copyButtonClicked();
+    void undoButtonClicked();
+    void redoButtonClicked();
+    void formatButtonClicked();
+
 private:
     Tab* m_activeTab = nullptr;
 

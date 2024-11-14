@@ -42,6 +42,21 @@ void DocumentWindow::buildUI()
 
     m_workspace = new Workspace(scroll);
     workspaceLayout->addWidget(m_workspace, 0, Qt::AlignHCenter);
+
+    makeWorkspaceConnections();
+}
+
+void DocumentWindow::makeWorkspaceConnections()
+{
+    connect(m_ribbon, &Ribbon::pasteButtonClicked, m_workspace, [this]()
+            {
+                m_workspace->paste();
+            });
+
+    connect(m_ribbon, &Ribbon::copyButtonClicked, m_workspace, [this]()
+            {
+                m_workspace->copy();
+            });
 }
 
 TitleBar* DocumentWindow::getTitleBar() const

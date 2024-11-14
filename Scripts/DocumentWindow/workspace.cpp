@@ -5,9 +5,11 @@
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QScrollArea>
+#include <QApplication>
+#include <QClipboard>
 
 Workspace::Workspace(QWidget *parent)
-    : QWidget{parent}
+    : QTextEdit{parent}
 {
     //auto layout = new QVBoxLayout(this);
 
@@ -35,4 +37,15 @@ Workspace::Workspace(QWidget *parent)
 
     //qDebug() << QGuiApplication::primaryScreen()->logicalDotsPerInch();
     //this->
+}
+
+void Workspace::boldText()
+{
+
+}
+
+void Workspace::mousePressEvent(QMouseEvent* event)
+{
+    qDebug() << QApplication::clipboard()->text();
+
 }
